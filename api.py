@@ -33,8 +33,8 @@ def getans(x):
 
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>Distant Reading Archive</h1>
-<p>A prototype API for distant reading of science fiction novels.</p>'''
+    return '''<h1>G;ode api</h1>
+<p>An API for converting gibberish caused by Thai user forgetting to change keybord layout.</p><br></br><h3>Usage</h3><strong>GET: /api/v1/getans?phrase=''</strong><p>returns with converted phrase</p>'''
 
 @app.route('/api/v1/getans', methods=['GET'])
 def api_id():
@@ -42,9 +42,11 @@ def api_id():
         phrase = str(request.args['phrase'])
         results = getans(phrase)
     else:
-        return "Error: No phrase provided."
+        return "Error: Missing Argument."
     return results
 
 if __name__ == "__main__":
     from waitress import serve
+    print("Api running on port 80")
     serve(app, host="0.0.0.0", port=80)
+    
