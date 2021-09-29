@@ -21,25 +21,18 @@ def getans(x):
         if phrase[i]==',':
             if phrase[i-1] in eng:
                 ans.append(tha[eng.index(phrase[i])])
-                print("found " + str(phrase[i] + " in eng , replacing with " + str(tha[eng.index(phrase[i])])))
             elif phrase[i-1] in tha:
                 ans.append(eng[tha.index(phrase[i])])
-                print("found " + str(phrase[i] + " in tha , replacing with " + str(eng[tha.index(phrase[i])])))
             else:
                 ans.append(eng[tha.index(phrase[i])])
-                print("found " + str(phrase[i] + " in tha , replacing with " + str(eng[tha.index(phrase[i])])))
         elif phrase[i] in tha:
             ans.append(eng[tha.index(phrase[i])])
-            print("found " + str(phrase[i] + " in tha , replacing with " + str(eng[tha.index(phrase[i])])))
         elif phrase[i] in eng:
             ans.append(tha[eng.index(phrase[i])])
-            print("found " + str(phrase[i] + " in eng , replacing with " + str(tha[eng.index(phrase[i])])))
         elif phrase[i]==' ':
             ans.append(' ')
-            print("found space")
         else:
             ans.append(phrase[i])
-            print("can't find match to " + str(phrase[i]) + " , returning original")
         i+=1
     answer = ''.join(ans)
     return answer
@@ -65,3 +58,4 @@ if __name__ == "__main__":
     from waitress import serve
     print("Api running on port 80")
     serve(app, host="0.0.0.0", port=80)
+    
