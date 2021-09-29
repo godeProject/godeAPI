@@ -5,6 +5,7 @@ from flask import request, jsonify
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+app.config['JSON_AS_ASCII'] = False
 
 def spl(x):
     return [char for char in x]
@@ -17,14 +18,28 @@ def getans(x):
     ans = []
     i = 0
     while i<phraselength:
-        if phrase[i] in tha:
+        if phrase[i]==',':
+            if phrase[i-1] in eng:
+                ans.append(tha[eng.index(phrase[i])])
+                print("found " + str(phrase[i] + " in eng , replacing with " + str(tha[eng.index(phrase[i])])))
+            elif phrase[i-1] in tha:
+                ans.append(eng[tha.index(phrase[i])])
+                print("found " + str(phrase[i] + " in tha , replacing with " + str(eng[tha.index(phrase[i])])))
+            else:
+                ans.append(eng[tha.index(phrase[i])])
+                print("found " + str(phrase[i] + " in tha , replacing with " + str(eng[tha.index(phrase[i])])))
+        elif phrase[i] in tha:
             ans.append(eng[tha.index(phrase[i])])
+            print("found " + str(phrase[i] + " in tha , replacing with " + str(eng[tha.index(phrase[i])])))
         elif phrase[i] in eng:
             ans.append(tha[eng.index(phrase[i])])
+            print("found " + str(phrase[i] + " in eng , replacing with " + str(tha[eng.index(phrase[i])])))
         elif phrase[i]==' ':
             ans.append(' ')
+            print("found space")
         else:
             ans.append(phrase[i])
+            print("can't find match to " + str(phrase[i]) + " , returning original")
         i+=1
     answer = ''.join(ans)
     return answer
@@ -33,20 +48,20 @@ def getans(x):
 
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>G;ode api</h1>
+    return '''<h1>g;ode api</h1>
 <p>An API for converting gibberish caused by Thai user forgetting to change keybord layout.</p><br></br><h3>Usage</h3><strong>GET: /api/v1/getans?phrase=''</strong><p>returns with converted phrase</p>'''
 
 @app.route('/api/v1/getans', methods=['GET'])
 def api_id():
     if 'phrase' in request.args:
         phrase = str(request.args['phrase'])
-        results = getans(phrase)
     else:
         return "Error: Missing Argument."
-    return results
+    return jsonify(
+        results=getans(phrase)
+    )
 
 if __name__ == "__main__":
     from waitress import serve
     print("Api running on port 80")
     serve(app, host="0.0.0.0", port=80)
-    
