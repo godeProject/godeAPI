@@ -28,10 +28,10 @@ def getans(x):
         elif phrase[i]=='-':
             if phrase[i-1]==' ' and phrase[i+1]==' ':
                 ans.append(eng[tha.index(phrase[i])])
-            elif phrase[i-1] in eng:
-                ans.append(tha[eng.index(phrase[i])])
             elif phrase[i-1] in tha:
                 ans.append(eng[tha.index(phrase[i])])
+            elif phrase[i-1] in eng:
+                ans.append(tha[eng.index(phrase[i])])
             else:
                 ans.append(eng[tha.index(phrase[i])])
         elif phrase[i] in tha:
