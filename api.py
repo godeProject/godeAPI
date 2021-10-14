@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import flask
+import datetime
+import codecs
 from flask import request, jsonify
 from qwkm import qwkm, spl
 
@@ -20,8 +22,17 @@ def api_id():
         phrase = str(request.args['phrase'])
     else:
         return "Error: Missing Argument."
+    ans = qwkm(phrase)
+    now = datetime.datetime.now()
+    date = now.strftime("%x")
+    time = now.strftime("%X")
+    logmessage = "["+str(date)+' '+str(time)+"] req: "+phrase+" returned: "+ans
+    log = codecs.open('log.txt', 'w', 'utf-8-sig')
+    log.write(logmessage)
+    log.close()
+    print(logmessage)
     return jsonify(
-        results=qwkm(phrase)
+        results=ans
     )
 
 if __name__ == "__main__":

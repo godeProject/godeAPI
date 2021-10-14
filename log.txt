@@ -1,0 +1,1 @@
+﻿# Write only log file for the api to keep all the request anonymously for statistic purposes
