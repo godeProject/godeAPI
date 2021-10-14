@@ -26,7 +26,7 @@ def api_id():
     now = datetime.datetime.now()
     date = now.strftime("%x")
     time = now.strftime("%X")
-    logmessage = "["+str(date)+' '+str(time)+"] req: "+phrase+" returned: "+ans
+    logmessage = "["+str(date)+' '+str(time)+"] reqfor: qwkm req: "+phrase+" returned: "+ans
     log = codecs.open('log.txt', 'w', 'utf-8-sig')
     log.write(logmessage)
     log.close()
