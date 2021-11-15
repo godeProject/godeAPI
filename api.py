@@ -20,10 +20,14 @@ def api_id():
     if 'phrase' in request.args:
         phrase = str(request.args['phrase'])
     else:
-        return "Error: Missing Argument."
+        return jsonify(
+            status='400',
+            Error='Missing Argument.'
+        )
     ans = qwkm(phrase)
     print(log('qwkm', phrase, ans))
     return jsonify(
+        status='200',
         results=ans
     )
 
