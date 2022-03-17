@@ -1,0 +1,13 @@
+{
+  "name": "godeapi",
+  "version": "2.0.0",
+  "main": "dist/app.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.3",
+    "gode.js": "2.0.0-beta.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13"
+  }
+}
