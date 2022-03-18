@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import gode, { EngLayout, ThaLayout } from 'gode.js'
 import cors from 'cors'
 import * as utils from './utils'
@@ -77,7 +77,22 @@ app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
 
 })
 
+//404
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.status(404).json({
+        'status': 404,
+        'Error': `Cannot find route ${req.path} on this server.`
+    })
+})
 
+//500
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(err.stack)
+    res.status(500).json({
+        'status': 500,
+        'Error': 'Internal Server Error'
+    })
+})
 
 app.listen(port, () => {
     console.log(`Api listening on port ${port}`)
