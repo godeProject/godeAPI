@@ -1,8 +1,11 @@
 import express, { Request, Response } from 'express'
 import gode, { EngLayout, ThaLayout } from 'gode.js'
+import cors from 'cors'
 
 const app = express()
 const port = 3000
+
+app.use(cors())
 
 function validateKeyboardLayout(englayout: string, thalayout: string) {
     const validThaLayout = ['Manoonchai', 'Kedmanee']
