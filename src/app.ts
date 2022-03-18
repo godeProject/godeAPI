@@ -19,6 +19,7 @@ app.get('/v1/getans/', (req: Request, res: Response) => {
         let ans = gode.qwkm(message)
         res.json({
             'status': 200,
+            'original': message,
             'results': ans
         })
     }
@@ -50,6 +51,7 @@ app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
             let ans = gode.convert(el as EngLayout, tl as ThaLayout, message as string)
             res.json({
                 'status': 200,
+                'original': message as string,
                 'results': ans
             })
         }
@@ -81,7 +83,6 @@ app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
 app.post('/v2/raw', (req: Request, res: Response) => {
     try {
         let body = req.body
-        console.log(body)
         let validity = utils.validateKeyboardLayout(body.engLayout as string, body.thaLayout as string)
         let tl: unknown = body.thaLayout
         let el: unknown = body.engLayout
@@ -90,6 +91,7 @@ app.post('/v2/raw', (req: Request, res: Response) => {
             let ans = gode.convert(el as EngLayout, tl as ThaLayout, message as string)
             res.json({
                 'status': 200,
+                'original': message as string,
                 'results': ans
             })
         }
