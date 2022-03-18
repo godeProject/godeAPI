@@ -7,6 +7,7 @@ const app = express()
 const port = 3000
 
 app.use(cors())
+app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => {
     res.redirect('https://github.com/godeProject/godeAPI')
@@ -65,6 +66,45 @@ app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
             res.json({
                 'status': 400,
                 'Error': 'Missing Argument'
+            })
+        }
+        else {
+            res.json({
+                'status': 500,
+                'Error': 'Internal Server Error'
+            })
+        }
+    }
+
+})
+
+app.post('/v2/raw', (req: Request, res: Response) => {
+    try {
+        let body = req.body
+        console.log(body)
+        let validity = utils.validateKeyboardLayout(body.engLayout as string, body.thaLayout as string)
+        let tl: unknown = body.thaLayout
+        let el: unknown = body.engLayout
+        let message: unknown = body.message
+        if (validity.isEngValid && validity.isThaValid) {
+            let ans = gode.convert(el as EngLayout, tl as ThaLayout, message as string)
+            res.json({
+                'status': 200,
+                'results': ans
+            })
+        }
+        else {
+            res.json({
+                'status': 400,
+                'Error': 'Bad Request'
+            })
+        }
+    }
+    catch {
+        if (!req.body) {
+            res.json({
+                'status': 400,
+                'Error': 'Missing Body'
             })
         }
         else {
