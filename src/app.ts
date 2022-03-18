@@ -38,7 +38,7 @@ app.get('/v1/getans/', (req: Request, res: Response) => {
 
 })
 
-app.get('/v2/convert/englayout/:englayout/thalayout/:thalayout/', (req: Request, res: Response) => {
+app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
     try {
         let parameter = req.params
         let validity = utils.validateKeyboardLayout(parameter.englayout as string, parameter.thalayout as string)
