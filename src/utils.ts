@@ -1,6 +1,6 @@
 export function validateKeyboardLayout(englayout: string, thalayout: string) {
     const validThaLayout = ['Manoonchai', 'Kedmanee']
-    const validEngLayout = ['QWERTY']
+    const validEngLayout = ['QWERTY', 'Dvorak']
     let isThaValid = false
     let isEngValid = false
     if (validThaLayout.includes(thalayout)) {
