@@ -15,11 +15,10 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/v1/getans/', (req: Request, res: Response) => {
     try {
-        let message = req.query.phrase as string
-        let ans = gode.qwkm(message)
+        let ans = gode.qwkm(req.query.phrase as string)
         res.json({
             'status': 200,
-            'original': message,
+            'original': req.query.phrase,
             'results': ans
         })
     }
@@ -44,14 +43,11 @@ app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
     try {
         let parameter = req.params
         let validity = utils.validateKeyboardLayout(parameter.englayout as string, parameter.thalayout as string)
-        let tl: unknown = parameter.thalayout
-        let el: unknown = parameter.englayout
-        let message: unknown = req.query.message
         if (validity.isEngValid && validity.isThaValid) {
-            let ans = gode.convert(el as EngLayout, tl as ThaLayout, message as string)
+            let ans = gode.convert(parameter.englayout as EngLayout, parameter.thalayout as ThaLayout, req.query.message as string)
             res.json({
                 'status': 200,
-                'original': message as string,
+                'original': req.query.message as string,
                 'results': ans
             })
         }
@@ -84,14 +80,11 @@ app.post('/v2/raw', (req: Request, res: Response) => {
     try {
         let body = req.body
         let validity = utils.validateKeyboardLayout(body.engLayout as string, body.thaLayout as string)
-        let tl: unknown = body.thaLayout
-        let el: unknown = body.engLayout
-        let message: unknown = body.message
         if (validity.isEngValid && validity.isThaValid) {
-            let ans = gode.convert(el as EngLayout, tl as ThaLayout, message as string)
+            let ans = gode.convert(body.engLayout as EngLayout, body.thaLayout as ThaLayout, body.message)
             res.json({
                 'status': 200,
-                'original': message as string,
+                'original': body.message,
                 'results': ans
             })
         }
