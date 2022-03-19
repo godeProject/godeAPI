@@ -16,7 +16,7 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/v1/getans/', (req: Request, res: Response) => {
     try {
         let ans = gode.qwkm(req.query.phrase as string)
-        res.json({
+        res.status(200).json({
             'status': 200,
             'original': req.query.phrase,
             'results': ans
@@ -24,13 +24,13 @@ app.get('/v1/getans/', (req: Request, res: Response) => {
     }
     catch {
         if (!req.query.phrase) {
-            res.json({
+            res.status(400).json({
                 'status': 400,
                 'Error': 'Missing Argument'
             })
         }
         else {
-            res.json({
+            res.status(500).json({
                 'status': 500,
                 'Error': 'Internal Server Error'
             })
@@ -45,14 +45,14 @@ app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
         let validity = utils.validateKeyboardLayout(parameter.englayout as string, parameter.thalayout as string)
         if (validity.isEngValid && validity.isThaValid) {
             let ans = gode.convert(parameter.englayout as EngLayout, parameter.thalayout as ThaLayout, req.query.message as string)
-            res.json({
+            res.status(200).json({
                 'status': 200,
                 'original': req.query.message as string,
                 'results': ans
             })
         }
         else {
-            res.json({
+            res.status(400).json({
                 'status': 400,
                 'Error': 'Bad Request'
             })
@@ -61,13 +61,13 @@ app.get('/v2/convert/:englayout/:thalayout/', (req: Request, res: Response) => {
     }
     catch {
         if (!req.params || !req.query.message) {
-            res.json({
+            res.status(400).json({
                 'status': 400,
                 'Error': 'Missing Argument'
             })
         }
         else {
-            res.json({
+            res.status(500).json({
                 'status': 500,
                 'Error': 'Internal Server Error'
             })
@@ -82,14 +82,14 @@ app.post('/v2/raw', (req: Request, res: Response) => {
         let validity = utils.validateKeyboardLayout(body.engLayout as string, body.thaLayout as string)
         if (validity.isEngValid && validity.isThaValid) {
             let ans = gode.convert(body.engLayout as EngLayout, body.thaLayout as ThaLayout, body.message)
-            res.json({
+            res.status(200).json({
                 'status': 200,
                 'original': body.message,
                 'results': ans
             })
         }
         else {
-            res.json({
+            res.status(400).json({
                 'status': 400,
                 'Error': 'Bad Request'
             })
@@ -97,13 +97,13 @@ app.post('/v2/raw', (req: Request, res: Response) => {
     }
     catch {
         if (!req.body) {
-            res.json({
+            res.status(400).json({
                 'status': 400,
                 'Error': 'Missing Body'
             })
         }
         else {
-            res.json({
+            res.status(500).json({
                 'status': 500,
                 'Error': 'Internal Server Error'
             })
