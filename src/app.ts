@@ -89,10 +89,32 @@ app.post('/v2/raw', (req: Request, res: Response) => {
             })
         }
         else {
-            res.status(400).json({
-                'status': 400,
-                'Error': 'Bad Request'
-            })
+            let missingArgument: boolean = false
+            let args: Array<string> = []
+            if (!body.engLayout) {
+                missingArgument = true
+                args.push("engLayout")
+            }
+            if (!body.thaLayout) {
+                missingArgument = true
+                args.push("thaLayout")
+            }
+            if (!body.message) {
+                missingArgument = true
+                args.push("message")
+            }
+            if (!missingArgument) {
+                res.status(400).json({
+                    'status': 400,
+                    'Error': 'Bad Request'
+                })
+            }
+            else {
+                res.status(400).json({
+                    'status': 400,
+                    'Error': `Missing following argument(s): ${args.join(', ')}`
+                })
+            }
         }
     }
     catch {
