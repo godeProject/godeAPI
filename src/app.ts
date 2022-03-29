@@ -138,7 +138,7 @@ app.post('/v2/raw', (req: Request, res: Response) => {
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).json({
         'status': 404,
-        'Error': `Cannot find route ${req.path} on this server.`
+        'Error': `Cannot find route ${req.method as string}: ${req.path as string} on this server.`
     })
 })
 
