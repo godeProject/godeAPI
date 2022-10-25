@@ -1,10 +1,17 @@
 import express, { NextFunction, Request, Response } from 'express'
 import gode, { EngLayout, ThaLayout } from 'gode.js'
 import cors from 'cors'
+import https from 'https'
+import fs from 'fs'
 import * as utils from './utils'
 
 const app = express()
-const port = 3000
+const port = 443
+
+//https
+const sslPrivkey = fs.readFileSync("/etc/letsencrypt/live/api.gode.app/privkey.pem")
+const sslCertificate = fs.readFileSync(" /etc/letsencrypt/live/api.gode.app/fullchain.pem")
+const sslCredentials = { key: sslPrivkey, cert: sslCertificate }
 
 app.use(cors())
 app.use(express.json())
@@ -151,6 +158,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     })
 })
 
-app.listen(port, () => {
-    console.log(`Api listening on port ${port}`)
+https.createServer(sslCredentials, app)
+    .listen(port, () => {
+        console.log(`App listening on port ${port}`)
 })
