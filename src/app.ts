@@ -10,7 +10,7 @@ const port = 443
 
 //https
 const sslPrivkey = fs.readFileSync("/etc/letsencrypt/live/api.gode.app/privkey.pem")
-const sslCertificate = fs.readFileSync(" /etc/letsencrypt/live/api.gode.app/fullchain.pem")
+const sslCertificate = fs.readFileSync("/etc/letsencrypt/live/api.gode.app/fullchain.pem")
 const sslCredentials = { key: sslPrivkey, cert: sslCertificate }
 
 app.use(cors())
