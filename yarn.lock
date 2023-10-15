@@ -370,10 +370,10 @@ get-symbol-description@^1.0.0:
     call-bind "^1.0.2"
     get-intrinsic "^1.1.1"
 
-gode.js@^2.0.0-beta.8:
-  version "2.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/gode.js/-/gode.js-2.0.0-beta.8.tgz#67610d42ec3ef20e940d62b811b1697dd56d4909"
-  integrity sha512-nhWRbl2MnhWJMfaFCNdDqa9JwcfvIVPIBj6XAU3P2o3XV2pDZmImt9MPwg75G2gSzI253MNt/biAPuYuKanwxA==
+gode.js@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/gode.js/-/gode.js-2.1.1.tgz#41f6198d080d8ab6d7df8a8ff838097a6f12442e"
+  integrity sha512-TMcbrxI1X3eQSv/tgfwRLXi6nAKqmU39to/XZqvWj9N+0suM4Tsd4yai/FKik2r2qM1sTib+9StydBTUUZTQ6Q==
 
 graceful-fs@^4.1.2:
   version "4.2.9"
