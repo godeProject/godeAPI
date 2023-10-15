@@ -12,8 +12,8 @@ const port = argv['port'] || 3000
 
 const app = new Elysia({
   serve: {
-    cert: certPath,
-    key: privKey,
+    cert: Bun.file(certPath),
+    key: Bun.file(privKey),
   }
 })
 
